@@ -12,7 +12,7 @@ export const ArchiveBlock: React.FC<
     id?: string
   }
 > = async (props) => {
-  const { id, categories, introContent, limit: limitFromProps, populateBy, selectedDocs } = props
+  const { id, categories, tags, introContent, limit: limitFromProps, populateBy, selectedDocs } = props
 
   const limit = limitFromProps || 3
 
@@ -26,6 +26,11 @@ export const ArchiveBlock: React.FC<
       else return category
     })
 
+    const flattenedTags = tags?.map((tag) => {
+      if (typeof tag === 'object') return tag.id
+      else return tag
+    })
+
     const fetchedPosts = await payload.find({
       collection: 'posts',
       depth: 1,
@@ -36,6 +41,9 @@ export const ArchiveBlock: React.FC<
               categories: {
                 in: flattenedCategories,
               },
+              tags: {
+                in: flattenedTags,
+              }
             },
           }
         : {}),
@@ -56,7 +64,7 @@ export const ArchiveBlock: React.FC<
     <div className="my-16" id={`block-${id}`}>
       {introContent && (
         <div className="container mb-16">
-          <RichText className="ml-0 max-w-[48rem]" content={introContent} enableGutter={false} />
+          <RichText className="mr-0 max-w-[48rem]" content={introContent} enableGutter={false} />
         </div>
       )}
       <CollectionArchive posts={posts} />

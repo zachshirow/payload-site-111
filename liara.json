@@ -1,5 +1,5 @@
 {
     "platform": "docker",
-    "app": "payloaddocker",
+    "app": "payloadcms",
     "port": 3000
 }

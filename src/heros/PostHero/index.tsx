@@ -19,7 +19,7 @@ export const PostHero: React.FC<{
               if (typeof category === 'object' && category !== null) {
                 const { title: categoryTitle } = category
 
-                const titleToUse = categoryTitle || 'Untitled category'
+                const titleToUse = categoryTitle || 'بدون دسته بندی'
 
                 const isLast = index === categories.length - 1
 
@@ -42,7 +42,7 @@ export const PostHero: React.FC<{
             <div className="flex flex-col gap-4">
               {populatedAuthors && (
                 <div className="flex flex-col gap-1">
-                  <p className="text-sm">Author</p>
+                  <p className="text-sm">نویسنده</p>
                   {populatedAuthors.map((author, index) => {
                     const { name } = author
 
@@ -53,13 +53,13 @@ export const PostHero: React.FC<{
                       <React.Fragment key={index}>
                         {name}
                         {secondToLast && populatedAuthors.length > 2 && (
-                          <React.Fragment>, </React.Fragment>
+                          <React.Fragment>، </React.Fragment>
                         )}
                         {secondToLast && populatedAuthors.length === 2 && (
                           <React.Fragment> </React.Fragment>
                         )}
                         {!isLast && populatedAuthors.length > 1 && (
-                          <React.Fragment>and </React.Fragment>
+                          <React.Fragment>و </React.Fragment>
                         )}
                       </React.Fragment>
                     )
@@ -69,7 +69,7 @@ export const PostHero: React.FC<{
             </div>
             {publishedAt && (
               <div className="flex flex-col gap-1">
-                <p className="text-sm">Date Published</p>
+                <p className="text-sm">تاریخ انتشار</p>
 
                 <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time>
               </div>

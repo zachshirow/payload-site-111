@@ -14,11 +14,13 @@ type Args = {
   }>
 }
 export default async function Page({ searchParams: searchParamsPromise }: Args) {
+  
   const { q: query } = await searchParamsPromise
   const payload = await getPayloadHMR({ config: configPromise })
 
   const posts = await payload.find({
-    collection: 'search',
+    // collection: 'search',
+    collection: 'posts',
     depth: 1,
     limit: 12,
     ...(query
@@ -56,7 +58,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
-          <h1 className="sr-only">Search</h1>
+          <h1 className="sr-only">جستجو</h1>
           <Search />
         </div>
       </div>
@@ -64,7 +66,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       {posts.totalDocs > 0 ? (
         <CollectionArchive posts={posts.docs as unknown as Post[]} />
       ) : (
-        <div className="container">No results found.</div>
+        <div className="container">هیچ نتایجی یافت نشد.</div>
       )}
     </div>
   )
@@ -72,6 +74,6 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Search`,
+    title: `جستجو در وبسایت`,
   }
 }

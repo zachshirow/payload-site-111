@@ -14,6 +14,7 @@ export interface Config {
     pages: Page;
     posts: Post;
     media: Media;
+    tags: Tag;
     categories: Category;
     users: User;
     redirects: Redirect;
@@ -259,6 +260,7 @@ export interface ArchiveBlock {
   populateBy?: ('collection' | 'selection') | null;
   relationTo?: 'posts' | null;
   categories?: (string | Category)[] | null;
+  tags?: (string | Tag)[] | null;
   limit?: number | null;
   selectedDocs?:
     | {
@@ -291,6 +293,16 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: string;
+  title: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts".
  */
 export interface Post {
@@ -313,6 +325,7 @@ export interface Post {
   };
   relatedPosts?: (string | Post)[] | null;
   categories?: (string | Category)[] | null;
+  tags?: (string | Tag)[] | null;
   meta?: {
     title?: string | null;
     image?: (string | null) | Media;
@@ -628,6 +641,10 @@ export interface PayloadLockedDocument {
         value: string | Media;
       } | null)
     | ({
+        relationTo: 'tags';
+        value: string | Tag;
+      } | null)
+    | ({
         relationTo: 'categories';
         value: string | Category;
       } | null)
@@ -776,6 +793,31 @@ export interface CodeBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'code';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaGroup".
+ */
+export interface CtaGroup {
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: string | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cta-group';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

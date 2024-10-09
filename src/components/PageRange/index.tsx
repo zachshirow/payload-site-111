@@ -7,8 +7,8 @@ const defaultLabels = {
 
 const defaultCollectionLabels = {
   posts: {
-    plural: 'Posts',
-    singular: 'Post',
+    plural: 'پست',
+    singular: 'پست',
   },
 }
 
@@ -46,7 +46,7 @@ export const PageRange: React.FC<{
       {(typeof totalDocs === 'undefined' || totalDocs === 0) && 'Search produced no results.'}
       {typeof totalDocs !== 'undefined' &&
         totalDocs > 0 &&
-        `Showing ${indexStart}${indexStart > 0 ? ` - ${indexEnd}` : ''} of ${totalDocs} ${
+        `نمایش ${indexStart}${indexStart > 0 ? ` - ${indexEnd}` : ''} از ${totalDocs} ${
           totalDocs > 1 ? plural : singular
         }`}
     </div>

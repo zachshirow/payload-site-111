@@ -16,12 +16,20 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import sharp from 'sharp' // editor-import
-import { UnderlineFeature } from '@payloadcms/richtext-lexical'
+import { 
+  UnderlineFeature, 
+  ChecklistFeature,
+  OrderedListFeature,
+  UnorderedListFeature,
+  RelationshipFeature,
+ } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 
 import Categories from './collections/Categories'
+import Tags from './collections/Tags'
+
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
@@ -90,6 +98,10 @@ export default buildConfig({
   editor: lexicalEditor({
     features: () => {
       return [
+        ChecklistFeature(),
+        OrderedListFeature(),
+        UnorderedListFeature(),
+        RelationshipFeature(),
         UnderlineFeature(),
         BoldFeature(),
         ItalicFeature(),
@@ -119,9 +131,9 @@ export default buildConfig({
     },
   }),
   db: mongooseAdapter({
-    url: process.env.DATABASE_URI || '',
+    url: process.env.DATABASE_URI || 'mongodb://root:SaHtGWK7HmpXuMDNTHzFu8ap@fitz-roy.liara.cloud:33426/my-app?authSource=admin',
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Media, Tags, Categories, Users],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   endpoints: [
@@ -201,7 +213,8 @@ export default buildConfig({
     }),
     payloadCloudPlugin(), // storage-adapter-placeholder
   ],
-  secret: process.env.PAYLOAD_SECRET!,
+  // secret: process.env.PAYLOAD_SECRET!,
+  secret: "payloadsecret",
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

@@ -30,10 +30,10 @@ export const Search: React.FC = () => {
           onChange={(event) => {
             setValue(event.target.value)
           }}
-          placeholder="Search"
+          placeholder="جستجو"
         />
         <button type="submit" className="sr-only">
-          submit
+          جستجو
         </button>
       </form>
     </div>
